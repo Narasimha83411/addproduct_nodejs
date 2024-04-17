@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <ul>
+        <% products.forEach(product => { %>
+            <li>
+                <strong>Product Name:</strong> <%= product.name %> | 
+                <strong>Price:$</strong> <%= product.price %> | 
+                <strong>Category:</strong> <%= product.category %> | 
+                <strong>Description:</strong> <%= product.description %> | 
+                <% if (product.imagePath) { %>
+                    <img src="/uploads/<%= product.imagePath %>" alt="<%= product.name %>'s image" style="max-width: 100px; width: 50;height: 50;"><br>
+                <% } else { %>
+                    <p>No image available</p><br>
+                <% } %>
+                <form action="/products/<%= product._id %>?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Delete</button>
+                </form>
+                <button><a href="/products/<%= product._id %>/edit">Edit</a></button>          
+              </li>
+        <% }); %>
+    </ul>
+    <button><a href="/products/new">Add New Product</a></button>
+</body>
+</html>
